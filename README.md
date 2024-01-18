@@ -32,7 +32,7 @@ Clone the repository and catkin_make:
 
 ```
     cd
-    git clone https://github.com/HKUST-Aerial-Robotics/A-LOAM.git ~/a_loam_ws/src
+    git clone https://github.com/cgbcgb/A-LOAM-NOTED.git ~/a_loam_ws/src
 ```
 
 将四个.cpp文件中的'/camera_init'修改为'camera_init'
