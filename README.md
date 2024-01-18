@@ -41,6 +41,12 @@ Clone the repository and catkin_make:
 
 修改kittiHelper.cpp中 'CV_LOAD_IMAGE_GRAYSCALE'为 'cv::IMREAD_GRAYSCALE'
 
+catkin_ws->src->a-loam->CMakeLists.txt 添加
+    
+```
+set( CMAKE_CXX_STANDARD 14)
+```
+
 ```
     cd a_loam_ws
     catkin_make
