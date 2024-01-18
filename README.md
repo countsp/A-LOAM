@@ -35,11 +35,11 @@ Clone the repository and catkin_make:
     git clone https://github.com/HKUST-Aerial-Robotics/A-LOAM.git ~/a_loam_ws/src
 ```
 
-将四个.cpp文件中的/camera_init修改为camera_init
+将四个.cpp文件中的'/camera_init'修改为'camera_init'
 
-将scanRegistration.cpp中的 #include <opencv/cv.h> 修改为#include <opencv2/imgproc.hpp>
+将scanRegistration.cpp中的 '#include <opencv/cv.h> '修改为'#include <opencv2/imgproc.hpp>'
 
-修改kittiHelper.cpp中 CV_LOAD_IMAGE_GRAYSCALE为 cv::IMREAD_GRAYSCALE
+修改kittiHelper.cpp中 'CV_LOAD_IMAGE_GRAYSCALE'为 'cv::IMREAD_GRAYSCALE'
 
 ```
     cd a_loam_ws
