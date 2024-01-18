@@ -35,6 +35,13 @@ Clone the repository and catkin_make:
     catkin_make
     source ~/a_loam_ws/devel/setup.bash
 ```
+## 3. Modify code
+
+将四个.cpp文件中的/camera_init修改为camera_init
+
+将scanRegistration.cpp中的 #include <opencv/cv.h> 修改为#include <opencv2/imgproc.hpp>
+
+修改kittiHelper.cpp中 CV_LOAD_IMAGE_GRAYSCALE为 cv::IMREAD_GRAYSCALE
 
 ## 3. Velodyne VLP-16 Example
 Download [NSH indoor outdoor](https://drive.google.com/file/d/1s05tBQOLNEDDurlg48KiUWxCp-YqYyGH/view) to YOUR_DATASET_FOLDER. 
