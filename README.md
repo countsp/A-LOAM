@@ -33,11 +33,7 @@ Clone the repository and catkin_make:
 ```
     cd
     git clone https://github.com/HKUST-Aerial-Robotics/A-LOAM.git ~/a_loam_ws/src
-    cd a_loam_ws
-    catkin_make
-    source ~/a_loam_ws/devel/setup.bash
 ```
-## 3. Modify code
 
 将四个.cpp文件中的/camera_init修改为camera_init
 
@@ -45,7 +41,16 @@ Clone the repository and catkin_make:
 
 修改kittiHelper.cpp中 CV_LOAD_IMAGE_GRAYSCALE为 cv::IMREAD_GRAYSCALE
 
-## 4. Velodyne VLP-16 Example
+```
+    cd a_loam_ws
+    catkin_make
+    source ~/a_loam_ws/devel/setup.bash
+```
+
+
+
+
+## 3. Velodyne VLP-16 Example
 Download [NSH indoor outdoor](https://drive.google.com/file/d/1s05tBQOLNEDDurlg48KiUWxCp-YqYyGH/view) to YOUR_DATASET_FOLDER. 
 
 ```
@@ -54,7 +59,7 @@ Download [NSH indoor outdoor](https://drive.google.com/file/d/1s05tBQOLNEDDurlg4
 ```
 
 
-## 5. KITTI Example (Velodyne HDL-64)
+## 4. KITTI Example (Velodyne HDL-64)
 Download [KITTI Odometry dataset](http://www.cvlibs.net/datasets/kitti/eval_odometry.php) to YOUR_DATASET_FOLDER and set the `dataset_folder` and `sequence_number` parameters in `kitti_helper.launch` file. Note you also convert KITTI dataset to bag file for easy use by setting proper parameters in `kitti_helper.launch`. 
 
 ```
@@ -63,7 +68,7 @@ Download [KITTI Odometry dataset](http://www.cvlibs.net/datasets/kitti/eval_odom
 ```
 <img src="https://github.com/HKUST-Aerial-Robotics/A-LOAM/blob/devel/picture/kitti_gif.gif" width = 720 height = 351 />
 
-## 6. Docker Support
+## 5. Docker Support
 To further facilitate the building process, we add docker in our code. Docker environment is like a sandbox, thus makes our code environment-independent. To run with docker, first make sure [ros](http://wiki.ros.org/ROS/Installation) and [docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/) are installed on your machine. Then add your account to `docker` group by `sudo usermod -aG docker $YOUR_USER_NAME`. **Relaunch the terminal or logout and re-login if you get `Permission denied` error**, type:
 ```
 cd ~/catkin_ws/src/A-LOAM/docker
