@@ -32,7 +32,7 @@ Clone the repository and catkin_make:
 
 ```
     cd
-    git clone https://github.com/cgbcgb/A-LOAM-NOTED.git ~/a_loam_ws/src
+    git clone https://github.com/cgbcgb/A-LOAM-NOTED.git ~/aloam_noted_ws/src
 ```
 
 将四个.cpp文件中的'/camera_init'修改为'camera_init'
@@ -41,16 +41,16 @@ Clone the repository and catkin_make:
 
 修改kittiHelper.cpp中 'CV_LOAD_IMAGE_GRAYSCALE'为 'cv::IMREAD_GRAYSCALE'
 
-catkin_ws->src->a-loam->CMakeLists.txt 添加
+aloam_noted_ws->src->a-loam->CMakeLists.txt 添加
     
 ```
 set( CMAKE_CXX_STANDARD 14)
 ```
 
 ```
-    cd a_loam_ws
+    cd aloam_noted_ws
     catkin_make
-    source ~/a_loam_ws/devel/setup.bash
+    source ~/aloam_noted_ws/devel/setup.bash
 ```
 
 
@@ -60,6 +60,7 @@ set( CMAKE_CXX_STANDARD 14)
 Download [NSH indoor outdoor](https://drive.google.com/file/d/1s05tBQOLNEDDurlg48KiUWxCp-YqYyGH/view) to YOUR_DATASET_FOLDER. 
 
 ```
+    cd aloam_noted_ws/src/launch
     roslaunch aloam_velodyne aloam_velodyne_VLP_16.launch
     rosbag play ~/bagfiles/nsh_indoor_outdoor.bag
 ```
