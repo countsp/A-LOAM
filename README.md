@@ -13,15 +13,15 @@ A-LOAM is an Advanced implementation of LOAM (J. Zhang and S. Singh. LOAM: Lidar
 Ubuntu 64-bit 16.04 or 18.04.
 ROS Kinetic or Melodic. [ROS Installation](http://wiki.ros.org/ROS/Installation)
 
-Ubuntu 20.04 noetic
-[Installation guide](https://blog.csdn.net/weixin_43910370/article/details/120736760c.)
+Ubuntu 20.04 Noetic
+[Installation Guide](https://blog.csdn.net/weixin_43910370/article/details/120736760c.)
 
 
 
-### 1.2. **Ceres Solver**
+### 1.2. **Ceres Solver** (not verified)
 Follow [Ceres Installation](http://ceres-solver.org/installation.html).
 
-### 1.3. **PCL**
+### 1.3. **PCL** (not verified)
 Follow [PCL Installation](http://www.pointclouds.org/downloads/linux.html).
 
 
@@ -29,11 +29,11 @@ Follow [PCL Installation](http://www.pointclouds.org/downloads/linux.html).
 Clone the repository and catkin_make:
 
 ```
-    cd ~/catkin_ws/src
-    git clone https://github.com/HKUST-Aerial-Robotics/A-LOAM.git
-    cd ../
+    cd
+    git clone https://github.com/HKUST-Aerial-Robotics/A-LOAM.git ~/a_loam_ws/src
+    cd a_loam_ws
     catkin_make
-    source ~/catkin_ws/devel/setup.bash
+    source ~/a_loam_ws/devel/setup.bash
 ```
 
 ## 3. Velodyne VLP-16 Example
@@ -41,7 +41,7 @@ Download [NSH indoor outdoor](https://drive.google.com/file/d/1s05tBQOLNEDDurlg4
 
 ```
     roslaunch aloam_velodyne aloam_velodyne_VLP_16.launch
-    rosbag play YOUR_DATASET_FOLDER/nsh_indoor_outdoor.bag
+    rosbag play ~/bagfiles/nsh_indoor_outdoor.bag
 ```
 
 
