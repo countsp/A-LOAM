@@ -10,15 +10,15 @@ A-LOAM is an Advanced implementation of LOAM (J. Zhang and S. Singh. LOAM: Lidar
 **Beware:**
 only supports 16/32/64 scans lidar
 
-does not rewrite markOcculdePoints function oof original LOAM (see featureExtraction.cpp::markOccludePoints() in LIO-SAM)
+does not rewrite markOcculdePoints function of original LOAM (see featureExtraction.cpp::markOccludePoints() in LIO-SAM)
 
 ## 1. Prerequisites
 ### 1.1 **Ubuntu** and **ROS**
 Ubuntu 64-bit 16.04 or 18.04.
 ROS Kinetic or Melodic. [ROS Installation](http://wiki.ros.org/ROS/Installation)
 
-Ubuntu 20.04 Noetic
-[Installation Guide](https://blog.csdn.net/weixin_43910370/article/details/120736760c.)
+Ubuntu 20.04 Noetic.
+summmarized from [Installation Guide](https://blog.csdn.net/weixin_43910370/article/details/120736760c.)
 
 
 
