@@ -7,8 +7,10 @@ A-LOAM is an Advanced implementation of LOAM (J. Zhang and S. Singh. LOAM: Lidar
 
 **Modifier:** [Tong Qin](http://www.qintonguav.com), [Shaozu Cao](https://github.com/shaozu)
 
+**Beware:**
 only supports 16/32/64 scans lidar
-does not rewrite markOcculdePoints function (see featureExtraction.cpp::markOccludePoints() in LIO-SAM)
+
+does not rewrite markOcculdePoints function oof original LOAM (see featureExtraction.cpp::markOccludePoints() in LIO-SAM)
 
 ## 1. Prerequisites
 ### 1.1 **Ubuntu** and **ROS**
