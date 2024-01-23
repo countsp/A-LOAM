@@ -34,7 +34,7 @@ Clone the repository and catkin_make:
 
 ```
     cd
-    git clone https://github.com/cgbcgb/A-LOAM-NOTED.git ~/aloam_noted_ws/src
+    git clone https://github.com/countsp/A-LOAM.git ~/aloam_noted_ws/src
 ```
 
 Modify the '/camera_init' in the four .cpp files to 'camera_init'.
