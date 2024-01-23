@@ -43,7 +43,7 @@ Change '#include <opencv/cv.h>' in scanRegistration.cpp to '#include <opencv2/im
 
 Replace 'CV_LOAD_IMAGE_GRAYSCALE' in kittiHelper.cpp with 'cv::IMREAD_GRAYSCALE'.
 
-In aloam_noted_ws->src->a-loam->CMakeLists.txt, add
+In aloam_noted_ws->src->CMakeLists.txt, add
 
 ```
 set( CMAKE_CXX_STANDARD 14)
