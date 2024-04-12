@@ -316,13 +316,15 @@ void laserCloudHandler(const sensor_msgs::PointCloud2ConstPtr &laserCloudMsg)
 
                     largestPickedNum++;
                     if (largestPickedNum <= 2)
-                    {                        
+                    {   
+                        //曲率大
                         cloudLabel[ind] = 2;
                         cornerPointsSharp.push_back(laserCloud->points[ind]);
                         cornerPointsLessSharp.push_back(laserCloud->points[ind]);
                     }
                     else if (largestPickedNum <= 20)
-                    {                        
+                    {    
+                        //曲率稍大
                         cloudLabel[ind] = 1; 
                         cornerPointsLessSharp.push_back(laserCloud->points[ind]);
                     }
@@ -360,15 +362,17 @@ void laserCloudHandler(const sensor_msgs::PointCloud2ConstPtr &laserCloudMsg)
                 }
             }
 
+            //选取面点
             int smallestPickedNum = 0;
             for (int k = sp; k <= ep; k++)
             {
                 int ind = cloudSortInd[k];
-
+                
                 if (cloudNeighborPicked[ind] == 0 &&
                     cloudCurvature[ind] < 0.1)
                 {
 
+                    //平坦点为-1
                     cloudLabel[ind] = -1; 
                     surfPointsFlat.push_back(laserCloud->points[ind]);
 
@@ -407,7 +411,8 @@ void laserCloudHandler(const sensor_msgs::PointCloud2ConstPtr &laserCloudMsg)
             }
 
             for (int k = sp; k <= ep; k++)
-            {
+            {   
+                //剩下都为平坦点
                 if (cloudLabel[k] <= 0)
                 {
                     surfPointsLessFlatScan->push_back(laserCloud->points[k]);
@@ -418,6 +423,8 @@ void laserCloudHandler(const sensor_msgs::PointCloud2ConstPtr &laserCloudMsg)
         pcl::PointCloud<PointType> surfPointsLessFlatScanDS;
         pcl::VoxelGrid<PointType> downSizeFilter;
         downSizeFilter.setInputCloud(surfPointsLessFlatScan);
+
+        // 边长为0.2的立方体进行体素滤波
         downSizeFilter.setLeafSize(0.2, 0.2, 0.2);
         downSizeFilter.filter(surfPointsLessFlatScanDS);
 
@@ -471,6 +478,8 @@ void laserCloudHandler(const sensor_msgs::PointCloud2ConstPtr &laserCloudMsg)
     }
 
     printf("scan registration time %f ms *************\n", t_whole.toc());
+
+    //如果算力不够可能报错丢帧
     if(t_whole.toc() > 100)
         ROS_WARN("scan registration process over 100ms");
 }
