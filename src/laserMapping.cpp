@@ -145,6 +145,7 @@ void transformAssociateToMap()
 	t_w_curr = q_wmap_wodom * t_wodom_curr + t_wmap_wodom;
 }
 
+// 更新odom 到 map的位姿变换
 void transformUpdate()
 {
 	q_wmap_wodom = q_w_curr * q_wodom_curr.inverse();
@@ -533,6 +534,8 @@ void process()
 
 			laserCloudCornerFromMap->clear();
 			laserCloudSurfFromMap->clear();
+
+			//提出索引中所有点，并组成帧的局部地图
 			for (int i = 0; i < laserCloudValidNum; i++)
 			{
 				*laserCloudCornerFromMap += *laserCloudCornerArray[laserCloudValidInd[i]];
@@ -541,7 +544,7 @@ void process()
 			int laserCloudCornerFromMapNum = laserCloudCornerFromMap->points.size();
 			int laserCloudSurfFromMapNum = laserCloudSurfFromMap->points.size();
 
-
+			//对当前点云下采样
 			pcl::PointCloud<PointType>::Ptr laserCloudCornerStack(new pcl::PointCloud<PointType>());
 			downSizeFilterCorner.setInputCloud(laserCloudCornerLast);
 			downSizeFilterCorner.filter(*laserCloudCornerStack);
@@ -581,9 +584,14 @@ void process()
 					{
 						pointOri = laserCloudCornerStack->points[i];
 						//double sqrtDis = pointOri.x * pointOri.x + pointOri.y * pointOri.y + pointOri.z * pointOri.z;
+						
+						//将当前点投影到地图坐标系下
 						pointAssociateToMap(&pointOri, &pointSel);
+						
+						// 地图中寻找最近的五个点
 						kdtreeCornerFromMap->nearestKSearch(pointSel, 5, pointSearchInd, pointSearchSqDis); 
 
+						// 最远点不能超过1m
 						if (pointSearchSqDis[4] < 1.0)
 						{ 
 							std::vector<Eigen::Vector3d> nearCorners;
@@ -605,16 +613,22 @@ void process()
 								covMat = covMat + tmpZeroMean * tmpZeroMean.transpose();
 							}
 
+							// 特征值分解，取出主方向
 							Eigen::SelfAdjointEigenSolver<Eigen::Matrix3d> saes(covMat);
 
 							// if is indeed line feature
 							// note Eigen library sort eigenvalues in increasing order
+							// 主方向就是线特征方向
 							Eigen::Vector3d unit_direction = saes.eigenvectors().col(2);
 							Eigen::Vector3d curr_point(pointOri.x, pointOri.y, pointOri.z);
+
+							//最大特征值大于次大的特征值三倍就为线特征
 							if (saes.eigenvalues()[2] > 3 * saes.eigenvalues()[1])
 							{ 
 								Eigen::Vector3d point_on_line = center;
 								Eigen::Vector3d point_a, point_b;
+
+								// 虚构两个虚拟点
 								point_a = 0.1 * unit_direction + point_on_line;
 								point_b = -0.1 * unit_direction + point_on_line;
 
@@ -823,9 +837,11 @@ void process()
 				pubLaserCloudSurround.publish(laserCloudSurround3);
 			}
 
+			// 每20帧发布全量的局部地图
 			if (frameCount % 20 == 0)
 			{
 				pcl::PointCloud<PointType> laserCloudMap;
+				// 21*21*11 =4851
 				for (int i = 0; i < 4851; i++)
 				{
 					laserCloudMap += *laserCloudCornerArray[i];
@@ -854,6 +870,7 @@ void process()
 
 			printf("whole mapping time %f ms +++++\n", t_whole.toc());
 
+			//发布当前位姿
 			nav_msgs::Odometry odomAftMapped;
 			odomAftMapped.header.frame_id = "/camera_init";
 			odomAftMapped.child_frame_id = "/aft_mapped";
@@ -867,6 +884,7 @@ void process()
 			odomAftMapped.pose.pose.position.z = t_w_curr.z();
 			pubOdomAftMapped.publish(odomAftMapped);
 
+			//发布当前轨迹
 			geometry_msgs::PoseStamped laserAfterMappedPose;
 			laserAfterMappedPose.header = odomAftMapped.header;
 			laserAfterMappedPose.pose = odomAftMapped.pose.pose;
@@ -875,6 +893,7 @@ void process()
 			laserAfterMappedPath.poses.push_back(laserAfterMappedPose);
 			pubLaserAfterMappedPath.publish(laserAfterMappedPath);
 
+			//发布tf
 			static tf::TransformBroadcaster br;
 			tf::Transform transform;
 			tf::Quaternion q;
