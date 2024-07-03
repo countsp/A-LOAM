@@ -91,3 +91,13 @@ The build process may take a while depends on your machine. After that, run `./r
 ## 6.Acknowledgements
 Thanks for LOAM(J. Zhang and S. Singh. LOAM: Lidar Odometry and Mapping in Real-time) and [LOAM_NOTED](https://github.com/cuitaixiang/LOAM_NOTED).
 
+
+
+---
+
+# 录制pcd
+在即将跑完的时候录制，在想要保存的文件夹位置，打开终端，运行
+
+rosrun pcl_ros pointcloud_to_pcd input:=/laser_cloud_map
+
+使用pcl_viewer查看（需要install pcl-tools）
